@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Listado de Mascotas</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
+<script>
+function loadVacunas(mascotaId) {
+    $.ajax({
+        url: `/mascotas/vacunas/${mascotaId}`,
+        method: 'GET',
+        success: function(data) {
+            $('#vacunasList').empty();
+            data.forEach(function(vacuna) {
+                $('#vacunasList').append(`<li class="list-group-item">${vacuna.nombre}: ${vacuna.tipo} - ${vacuna.fecha} 
+                 <a class="btn btn-primary" href="/vacunas/delete/${vacuna.id}"><i class="fas fa-trash-alt"> Eliminar</i></a></li>`);
+            });
+        }
+    });
+}
+$(document).ready(function() {
+    $('#vacunasModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var mascotaId = button.data('id');
+        loadVacunas(mascotaId);
+    });
+});
+</script>
+<script>
+function loadProcedimientos(mascotaId) {
+	$.ajax({
+		url: `/mascotas/procedimientos/${mascotaId}`,
+		method: 'GET',
+		success: function(data) {
+			$('#procedimientosList').empty();
+			data.forEach(function(procedimiento) {
+				$('#procedimientosList').append(`<li class="list-group-item">${procedimiento.nombre}: ${procedimiento.tipo} - ${procedimiento.fecha} - ${procedimiento.descripcion}
+						<a class="btn btn-primary" href="/procedimientos/delete/${procedimiento.id}"><i class="fas fa-trash-alt"> Eliminar</i></a></li>`);
+			});
+		}
+	});
+}
+
+$(document).ready(function() {
+    $('#procedimientosModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var mascotaId = button.data('id');
+        loadProcedimientos(mascotaId);
+    });
+});
+</script>
+<style>
+.card-body {
+	display: flex;
+	margin-left: 30px;
+	justify-content: center;
+	border: none;
+	width: 1200px
+}
+
+.card {
+	border: none;
+	display: flex;
+	justify-content: center;
+}
+</style>
+</head>
+<body class="bg-dark">
+	<div class="d-flex justify-content-center container">
+		<div class="card bg-dark">
+			<p class="my-5">
+				<a th:href="@{/veterinario}" class="btn btn-danger"
+					style="margin-right: 100px"> <i class="fas fa-arrow-left ml-2">
+						Regresar</i>
+				</a>
+			</p>
+			<div class="card-body">
+				<div th:switch="${mascotas}" class="container my-5">
+					<div class="col-md-10">
+						<h2 th:case="null">No se encontraron registros</h2>
+						<div th:case="*">
+							<table
+								class="table table-striped table-resposive-md bg-light table-bordered">
+								<thead>
+									<tr class="text-center">
+										<th>Nombre</th>
+										<th>Especie</th>
+										<th>Raza</th>
+										<th>edad</th>
+										<th>sexo</th>
+										<th>Dueño</th>
+										<th colspan="4">Acciones</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="mascota : ${mascotas}" class="text-center">
+										<td th:text="${mascota.nombre}"></td>
+										<td th:text="${mascota.especie}"></td>
+										<td th:text="${mascota.raza}"></td>
+										<td th:text="${mascota.edad}"></td>
+										<td th:text="${mascota.sexo}"></td>
+										<td th:text="${mascota.dueño.nombre + ' ' + mascota.dueño.apellido}"></td>
+										<td><a
+											th:href="@{/mascotas/edit/{id}(id=${mascota.id})}"
+											class="btn btn-primary"> <i class="fas fa-user-edit ml-2"></i>
+										</a></td>
+										<td><a
+											th:href="@{/mascotas/delete/{id}(id=${mascota.id})}"
+											class="btn btn-primary"> <i
+												class="fas fa-user-times ml-2"></i>
+										</a></td>
+										<td><button class="btn btn-primary" th:attr="data-id=${mascota.id}" data-toggle="modal" data-target="#vacunasModal">
+												<i class="fas fa-syringe ml-2" style="color: white"> Vacunas</i>
+                                            </button>
+											<div class="modal fade" id="vacunasModal" tabindex="-1"
+												aria-labelledby="vacunasModalLabel" aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="vacunasModalLabel">
+																Vacunas de <span th:text="${mascota.nombre}"></span>
+															</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<ul id="vacunasList" class="list-group">
+															</ul>
+														</div>
+														<div class="modal-footer">
+															<a th:href="@{/mascotas/vacuna/{id}(id=${mascota.id})}"
+															class="btn btn-primary">
+																<i class="fas fa-plus-circle ml-2"> Agregar vacuna</i>
+															</a>
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">Cerrar</button>
+														</div>
+													</div>
+												</div>
+											</div></td>
+										<td>
+											<button class="btn btn-primary" th:attr="data-id=${mascota.id}" data-toggle="modal" data-target="#procedimientosModal">
+												<i class="fas fa-procedures ml-2" style="color: white"> Procedimientos</i>
+											</button>
+											<div class="modal fade" id="procedimientosModal" tabindex="-1"
+												aria-labelledby="procedimientosModalLabel" aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="procedimientosModalLabel">
+																Procedimientos de <span th:text="${mascota.nombre}"></span>
+															</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>	
+															</button>
+														</div>
+														<div class="modal-body">
+															<ul id="procedimientosList" class="list-group">
+															</ul>
+														</div>
+														<div class="modal-footer">
+															<a th:href="@{/mascotas/procedimiento/{id}(id=${mascota.id})}"
+															class="btn btn-primary"><i class="fas fa-plus-circle ml-2"> Agregar procedimiento</i></a>
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">Cerrar</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

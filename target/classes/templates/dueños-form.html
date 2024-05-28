@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
+<style>
+    .card-body {
+        display: flex;
+        justify-content: center;
+        border: none;
+        border-radius: 20px
+    }
+    #formulario {
+        display: flex;
+        margin-left: 180px
+    }
+    .card {
+    	border:none
+    }
+</style>
+</head>
+<body class="bg-dark">
+	<div class="container my-5 d-flex justify-content-center">
+		<div class="card col-md-8 bg-dark">
+			<div class="card-body py-4 bg-light">
+				<div id="formulario" class="col-md-10">
+					<form th:action="${tipo == 'nuevo' ? '/duenos/register' : '/duenos/save'}" th:object="${dueño}"
+						method="post">
+						<div class="row">
+							<div class="form-group col-md-8">
+								<label th:if="${dueño.cedula == null}" for="cedula"
+									class="col-form-label">Cedula</label> <input
+									th:value="${dueño.cedula != null ? dueño.cedula : ''}"
+									th:attr="type=${dueño.cedula == null ? 'text' : 'hidden'}"
+									th:field="*{cedula}" class="form-control" id="cedula"
+									placeholder="Cedula" pattern="[0-9]*">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="nombre" class="col-form-label">Nombre</label> <input
+									type="text" th:field="*{nombre}" class="form-control"
+									id="nombre" placeholder="Nombre">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="apellido" class="col-form-label">Apellido</label> <input
+									type="text" th:field="*{apellido}" class="form-control"
+									id="apellido" placeholder="Apellido">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="telefono" class="col-form-label">Teléfono</label> <input
+									type="text" th:field="*{telefono}" class="form-control"
+									id="telefono" placeholder="Teléfono">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="direccion" class="col-form-label">Dirección</label> <input
+									type="text" th:field="*{direccion}" class="form-control"
+									id="direccion" placeholder="Dirección">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="usuario" class="col-form-label">Usuario</label> <input
+									type="text" th:field="*{usuario}" class="form-control"
+									id="usuario" placeholder="Usuario">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="contraseña" class="col-form-label">Contraseña</label>
+								<input type="text" th:field="*{contraseña}"
+									class="form-control" id="contraseña" placeholder="Contraseña">
+							</div>
+							<div class="col-md-8">
+								<input type="submit" class="btn btn-primary" value="Enviar">
+								<a th:href="@{/veterinario}" class="btn btn-danger"
+									style="margin-left: 160px; padding-left:5px"> <i
+									class="fas fa-times-circle ml-2"> Cancelar</i>
+								</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
