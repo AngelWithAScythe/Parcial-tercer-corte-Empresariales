@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
+<style>
+.card-body {
+	display: flex;
+	justify-content: center;
+	border: none;
+	border-radius: 20px
+}
+
+#formulario {
+	display: flex;
+	margin-left: 180px
+}
+
+.card {
+	border: none
+}
+</style>
+</head>
+<body class="bg-dark">
+	<div class="container my-5 d-flex justify-content-center">
+		<div class="card col-md-8 bg-dark">
+			<div class="card-body py-4 bg-light">
+				<div id="formulario" class="col-md-10">
+					<form
+						th:with="url = ${dueñoCedula != null} ? '/mascotas/save/' + ${dueñoCedula} +'/'+ ${session.usuario.cedula} : '/mascotas/save/' + ${mascota.dueño.cedula} +'/'+ ${session.usuario.cedula}"
+						th:action="@{${url}}" th:object="${mascota}" method="post">
+						<div class="row">
+							<div class="form-group col-md-8">
+								<label for="nombre" class="col-form-label">Nombre</label> <input
+									type="text" th:field="*{nombre}" class="form-control"
+									id="nombre" placeholder="Nombre">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="especie" class="col-form-label">Especie</label> <input
+									type="text" th:field="*{especie}" class="form-control"
+									id="especie" placeholder="Especie">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="raza" class="col-form-label">Raza</label> <input
+									type="text" th:field="*{raza}" class="form-control" id="raza"
+									placeholder="Raza">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="edad" class="col-form-label">Edad</label> <input
+									type="number" th:field="*{edad}" class="form-control" id="edad">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="sexo">Sexo:</label> <select class="form-control"
+									id="sexo" name="sexo" th:field="*{sexo}">
+									<option value="" disabled selected>Seleccione el sexo</option>
+									<option th:each="sexo : ${sexos}" th:value="${sexo}"
+										th:text="${sexo}"></option>
+								</select>
+							</div>
+							<th:block th:each="vacuna : ${mascota.vacunas}">
+								<input type="hidden" th:field="*{vacunas[__${vacunaStat.index}__].id}" th:value="${vacuna.id}" />
+							</th:block>
+							<th:block th:each="procedimiento : ${mascota.procedimientos}">
+								<input type="hidden" th:field="*{procedimientos[__${procedimientoStat.index}__].id}" th:value="${procedimiento.id}" />
+							</th:block>
+							<input type="hidden" th:field="*{dueño.cedula}"
+								th:value="${dueño != null ? dueño.cedula : mascota.dueño.cedula}">
+							<input type="hidden" th:field="*{veterinario.cedula}"
+								th:value="${session.usuario.cedula}"> <input
+								type="hidden" th:field="*{id}">
+							<div class="col-md-8">
+								<input type="submit" class="btn btn-primary" value="Enviar">
+								<a th:href="@{/veterinario}" class="btn btn-danger"
+									style="margin-left: 160px; padding-left: 5px"> <i
+									class="fas fa-times-circle ml-2"> Cancelar</i>
+								</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

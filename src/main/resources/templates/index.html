@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Inicio</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
+</head>
+<body>
+	<div class="card">
+		<div class="card-body">
+			<p class="my-5">
+				<a th:href="@{/}" class="btn btn-danger"
+					style="margin-right: 100px"> <i class="fas fa-arrow-left ml-2">
+						Regresar</i>
+				</a>
+			</p>
+			<h1 class="text-center">Funciones de prueba</h1>
+			<div style="margin-top: 80px" class="text-center">
+				<a class="btn btn-primary" th:href="@{/duenos/new}">Registrar dueños y mascotas</a>
+				<a class="btn btn-primary" th:href="@{/veterinarios}">Lista veterinarios</a>
+				<a class="btn btn-primary" th:href="@{/mascotas}">Lista de mascotas</a>
+				<a class="btn btn-primary" th:href="@{/duenos}">Lista de dueños</a>
+				<a th:href="@{/logout}">Logout</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
