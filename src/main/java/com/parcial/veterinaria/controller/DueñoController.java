@@ -1,5 +1,7 @@
 package com.parcial.veterinaria.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.parcial.veterinaria.exception.NotFoundException;
 import com.parcial.veterinaria.model.Dueño;
@@ -24,7 +28,7 @@ public class DueñoController {
 	DueñoRepository repository;
 	
 	@RequestMapping
-	public String dueñossListTemplate(Model model) {
+	public String dueñosListTemplate(Model model) {
 		model.addAttribute("dueños", repository.findAll());
 		return "lista-dueños";
 	}
@@ -71,6 +75,23 @@ public class DueñoController {
 	public String deleteDueño(@PathVariable("cedula") String cedula) {
 		repository.deleteById(cedula);
 		return "redirect:/duenos";
+	}
+	
+	@PostMapping("/foto/{id}")
+	public String subirFotoDueño(@RequestParam("foto") MultipartFile foto, @PathVariable("id") String id) {
+		Dueño dueño = repository.findById(id).orElseThrow(() -> new NotFoundException("Dueño no encontrado"));
+		try {
+			if(!foto.isEmpty()) {
+				byte[] fotoBytes = foto.getBytes();
+				dueño.setFoto(fotoBytes);
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		repository.save(dueño);
+		
+		return "redirect:/dueno";
 	}
 	
 }

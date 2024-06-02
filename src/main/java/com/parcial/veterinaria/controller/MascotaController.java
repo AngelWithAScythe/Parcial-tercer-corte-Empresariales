@@ -153,7 +153,7 @@ public class MascotaController {
 	}	
 	
 	@PostMapping("/foto/{id}")
-	public String subirFoto(@RequestParam("foto") MultipartFile foto, @PathVariable("id") String id, HttpSession session) {
+	public String subirFotoMascota(@RequestParam("foto") MultipartFile foto, @PathVariable("id") String id, HttpSession session) {
 		Mascota mascota = repository.findById(id).orElseThrow(() -> new NotFoundException("Mascota no encontrada"));
 		try {
             if (!foto.isEmpty()) {

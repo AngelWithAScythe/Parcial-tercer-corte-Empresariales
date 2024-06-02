@@ -152,6 +152,9 @@ $(document).ready(function() {
 											                <p><strong>Apellido:</strong> <span id="modalApellido"></span></p>
 											                <p><strong>Dirección:</strong> <span id="modalDireccion"></span></p>
 											                <p><strong>Teléfono:</strong> <span id="modalTelefono"></span></p>
+											                <div th:if="${mascota.dueño.foto != null}">
+																<img th:src="'data:image/jpeg;base64,' + ${mascota.dueño.fotoBase64}" alt="Foto dueño" width="200" height="200"/>
+															</div>
 											            </div>
 											            <div class="modal-footer">
 											            	<a th:href="@{/mascotas/new/{cedula}(cedula=${mascota.dueño.cedula})}"

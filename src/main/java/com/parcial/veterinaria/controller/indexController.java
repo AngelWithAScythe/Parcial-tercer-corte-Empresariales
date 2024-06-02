@@ -18,11 +18,6 @@ public class indexController {
 		return "nosotros";
 	}
 
-	@GetMapping("/seleccionar")
-	public String seleccionar() {
-		return "index";
-	}
-
 	@GetMapping("/veterinario")
 	public String vistaVeterinario() {
 		return "view-veterinario";

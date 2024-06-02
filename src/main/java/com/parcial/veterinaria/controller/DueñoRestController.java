@@ -92,6 +92,7 @@ public class DueñoRestController {
 		}
 		
 		dueño.setContraseña(contraseña);
+		dueño.setFoto(null);
 		
 		return repository.save(dueño);
 	}

@@ -1,5 +1,7 @@
 package com.parcial.veterinaria.model;
 
+import java.util.Base64;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,6 +18,8 @@ public class Dueño {
 	private Long telefono;
 	
 	private String direccion;
+	
+	private byte[] foto;
 	
 	private String usuario;
 	
@@ -60,6 +64,18 @@ public class Dueño {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+
+	public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+	
+	public String getFotoBase64() {
+        return foto != null ? Base64.getEncoder().encodeToString(foto) : null;
+    }
 
 	public String getUsuario() {
 		return usuario;
