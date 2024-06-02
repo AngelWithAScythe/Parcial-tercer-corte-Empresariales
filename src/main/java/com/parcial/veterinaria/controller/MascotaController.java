@@ -1,5 +1,6 @@
 package com.parcial.veterinaria.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.parcial.veterinaria.exception.NotFoundException;
 import com.parcial.veterinaria.model.Dueño;
@@ -148,4 +151,23 @@ public class MascotaController {
 		
 		return "redirect:/mascotas/"+veterinario.getCedula();
 	}	
+	
+	@PostMapping("/foto/{id}")
+	public String subirFoto(@RequestParam("foto") MultipartFile foto, @PathVariable("id") String id, HttpSession session) {
+		Mascota mascota = repository.findById(id).orElseThrow(() -> new NotFoundException("Mascota no encontrada"));
+		try {
+            if (!foto.isEmpty()) {
+                byte[] fotoBytes = foto.getBytes();
+                mascota.setFoto(fotoBytes);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+		Dueño dueño = (Dueño) session.getAttribute("usuario");
+		
+		repository.save(mascota);
+		
+		return "redirect:/mascotas/lista/" + dueño.getCedula();
+	}
 }

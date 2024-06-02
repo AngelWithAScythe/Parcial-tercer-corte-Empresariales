@@ -1,5 +1,6 @@
 package com.parcial.veterinaria.model;
 
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -21,6 +22,8 @@ public class Mascota {
 	private int edad;
 
 	private String sexo;
+	
+	private byte[] foto;
 
 	@DocumentReference
 	private Veterinario veterinario;
@@ -81,6 +84,18 @@ public class Mascota {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
+
+	public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+	
+	public String getFotoBase64() {
+        return foto != null ? Base64.getEncoder().encodeToString(foto) : null;
+    }
 
 	public Veterinario getVeterinario() {
 		return veterinario;

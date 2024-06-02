@@ -57,10 +57,26 @@ $(document).ready(function() {
     });
 });
 </script>
+<script>
+    function openModal(element) {
+        var nombre = element.getAttribute("data-nombre");
+        var apellido = element.getAttribute("data-apellido");
+        var direccion = element.getAttribute("data-direccion");
+        var telefono = element.getAttribute("data-telefono");
+
+        document.getElementById("modalNombre").innerText = nombre;
+        document.getElementById("modalApellido").innerText = apellido;
+        document.getElementById("modalDireccion").innerText = direccion;
+        document.getElementById("modalTelefono").innerText = telefono;
+
+        $('#ownerModal').modal('show');
+    }
+</script>
 <style>
 .card-body {
 	display: flex;
-	margin-left: 30px;
+	margin-left: -30px;
+	margin-top: -40px;
 	justify-content: center;
 	border: none;
 	width: 1200px
@@ -91,23 +107,63 @@ $(document).ready(function() {
 								class="table table-striped table-resposive-md bg-light table-bordered">
 								<thead>
 									<tr class="text-center">
+										<th>Foto</th>
 										<th>Nombre</th>
 										<th>Especie</th>
 										<th>Raza</th>
-										<th>edad</th>
-										<th>sexo</th>
+										<th>Edad</th>
+										<th>Sexo</th>
 										<th>Dueño</th>
 										<th colspan="4">Acciones</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:each="mascota : ${mascotas}" class="text-center">
+										<td>
+											<div th:if="${mascota.foto != null}">
+												<img th:src="'data:image/jpeg;base64,' + ${mascota.fotoBase64}" alt="Foto de la mascota" width="200" height="200"/>
+											</div>
+											<div th:if="${mascota.foto == null}">
+												Sin foto
+											</div>
+										</td>
 										<td th:text="${mascota.nombre}"></td>
 										<td th:text="${mascota.especie}"></td>
 										<td th:text="${mascota.raza}"></td>
 										<td th:text="${mascota.edad}"></td>
 										<td th:text="${mascota.sexo}"></td>
-										<td th:text="${mascota.dueño.nombre + ' ' + mascota.dueño.apellido}"></td>
+										<td>
+										    <a href="#" th:data-nombre="${mascota.dueño.nombre}" th:data-apellido="${mascota.dueño.apellido}"
+										       th:data-direccion="${mascota.dueño.direccion}" th:data-telefono="${mascota.dueño.telefono}"
+										       onclick="openModal(this)">
+										        <span th:text="${mascota.dueño.nombre + ' ' + mascota.dueño.apellido}"></span>
+										    </a>
+											<div id="ownerModal" class="modal" tabindex="-1" role="dialog">
+											    <div class="modal-dialog" role="document">
+											        <div class="modal-content">
+											            <div class="modal-header">
+											                <h5 class="modal-title">Datos del Dueño</h5>
+											                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											                    <span aria-hidden="true">&times;</span>
+											                </button>
+											            </div>
+											            <div class="modal-body">
+											                <p><strong>Nombre:</strong> <span id="modalNombre"></span></p>
+											                <p><strong>Apellido:</strong> <span id="modalApellido"></span></p>
+											                <p><strong>Dirección:</strong> <span id="modalDireccion"></span></p>
+											                <p><strong>Teléfono:</strong> <span id="modalTelefono"></span></p>
+											            </div>
+											            <div class="modal-footer">
+											            	<a th:href="@{/mascotas/new/{cedula}(cedula=${mascota.dueño.cedula})}"
+															class="btn btn-primary">
+																<i class="fas fa-plus-circle ml-2"> Agregar Mascota</i>
+															</a>
+											                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+											            </div>
+											        </div>
+											    </div>
+											</div>    
+										</td>
 										<td><a
 											th:href="@{/mascotas/edit/{id}(id=${mascota.id})}"
 											class="btn btn-primary"> <i class="fas fa-user-edit ml-2"></i>
@@ -118,7 +174,7 @@ $(document).ready(function() {
 												class="fas fa-user-times ml-2"></i>
 										</a></td>
 										<td><button class="btn btn-primary" th:attr="data-id=${mascota.id}" data-toggle="modal" data-target="#vacunasModal">
-												<i class="fas fa-syringe ml-2" style="color: white"> Vacunas</i>
+												<i class="fas fa-syringe ml-2" style="color: white"></i>
                                             </button>
 											<div class="modal fade" id="vacunasModal" tabindex="-1"
 												aria-labelledby="vacunasModalLabel" aria-hidden="true">
@@ -150,7 +206,7 @@ $(document).ready(function() {
 											</div></td>
 										<td>
 											<button class="btn btn-primary" th:attr="data-id=${mascota.id}" data-toggle="modal" data-target="#procedimientosModal">
-												<i class="fas fa-procedures ml-2" style="color: white"> Procedimientos</i>
+												<i class="fas fa-procedures ml-2" style="color: white"></i>
 											</button>
 											<div class="modal fade" id="procedimientosModal" tabindex="-1"
 												aria-labelledby="procedimientosModalLabel" aria-hidden="true">

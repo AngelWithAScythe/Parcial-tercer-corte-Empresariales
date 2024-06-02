@@ -2,6 +2,7 @@ package com.parcial.veterinaria.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -55,6 +56,7 @@ public class DueñoController {
 		return "redirect:/dueno";
 	}
 	
+	@Transactional
 	@PostMapping("/register")
 	public String dueñosRegister(@ModelAttribute("dueños") Dueño dueño) {
 		if(dueño.getCedula().isEmpty()) {

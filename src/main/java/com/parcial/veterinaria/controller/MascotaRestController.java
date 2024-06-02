@@ -115,6 +115,7 @@ public class MascotaRestController {
 		
 		mascota.setVacunas(null);
 		mascota.setProcedimientos(null);
+		mascota.setFoto(null);
 		
 		return repository.save(mascota);
 	}
