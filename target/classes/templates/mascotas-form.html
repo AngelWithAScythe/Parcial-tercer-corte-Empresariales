@@ -80,7 +80,7 @@ body{
 							<input type="hidden" th:field="*{foto}" th:value="${mascota.foto}">
 							<div class="col-md-8">
 								<input type="submit" class="btn btn-primary" value="Enviar">
-								<a th:href="@{/veterinario}" class="btn btn-danger"
+								<a th:href="@{/mascotas/{cedula}(cedula = ${session.usuario.cedula})}" class="btn btn-danger"
 									style="margin-left: 160px; padding-left: 5px"> <i
 									class="fas fa-times-circle ml-2"> Cancelar</i>
 								</a>

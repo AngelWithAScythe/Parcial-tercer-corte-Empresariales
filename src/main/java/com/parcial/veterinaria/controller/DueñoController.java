@@ -78,7 +78,7 @@ public class DueñoController {
 	}
 	
 	@PostMapping("/foto/{id}")
-	public String subirFotoDueño(@RequestParam("foto") MultipartFile foto, @PathVariable("id") String id) {
+	public String subirFotoDueño(@RequestParam("foto") MultipartFile foto, @PathVariable("id") String id, HttpSession session) {
 		Dueño dueño = repository.findById(id).orElseThrow(() -> new NotFoundException("Dueño no encontrado"));
 		try {
 			if(!foto.isEmpty()) {
@@ -90,7 +90,7 @@ public class DueñoController {
 		}
 		
 		repository.save(dueño);
-		
+		session.setAttribute("usuario", dueño);
 		return "redirect:/dueno";
 	}
 	
