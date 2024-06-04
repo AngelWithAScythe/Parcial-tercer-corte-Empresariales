@@ -7,14 +7,12 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
+<link rel="stylesheet" th:href="@{/css/cruds.css}">
 <style>
 .card-body {
+	margin-left: 130px;
 	display: flex;
-	margin-left: -5px;
-	margin-top: -40px;
 	justify-content: center;
-	border: none;
-	width: 1200px
 }
 
 .card {
@@ -24,14 +22,14 @@
 }
 </style>
 </head>
-<body class="bg-dark">
-	<div class="d-flex justify-content-center container">
-		<div class="card bg-dark">
-			<p class="my-5">
-				<a th:href="@{/veterinario}" class="btn btn-danger" style="margin-right: 100px">
+<body>
+<header class="header">
+	<div class="d-flex justify-content-start container">
+				<a th:href="@{/veterinario}" class="btn btn-danger">
 					<i class="fas fa-arrow-left ml-2"> Regresar</i>
 				</a>
-			</p>
+	</div>
+</header>
 			<div class="card-body">
 				<div th:switch="${dueños}" class="container my-5">
 					<div class="col-md-10">

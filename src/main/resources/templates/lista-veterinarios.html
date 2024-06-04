@@ -7,13 +7,13 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
+<link rel="stylesheet" th:href="@{/css/cruds.css}">
 <style>
 .card-body {
+	margin-left: 150px;
 	display: flex;
-	margin-left: 30px;
 	justify-content: center;
-	border: none;
-	width: 1200px
+
 }
 
 .card {
@@ -23,17 +23,18 @@
 }
 </style>
 </head>
-<body class="bg-dark">
-	<div class="d-flex justify-content-center container">
-		<div class="card bg-dark">
-			<p class="my-5">
+<body>
+<header class="header">
+	<div class="d-flex justify-content-start container">
 				<a th:href="@{/admin}" class="btn btn-danger"
 					style="margin-right: 100px"> <i class="fas fa-arrow-left ml-2">
 						Regresar</i>
 				</a> <a th:href="@{/veterinarios/new}" class="btn btn-primary"> <i
 					class="fas fa-user-plus ml-2"> Agregar Veterinario</i>
 				</a>
-			</p>
+	</div>
+</header>
+	<div class="d-flex justify-content-center container">
 			<div class="card-body">
 				<div th:switch="${veterinarios}" class="container my-5">
 					<div class="col-md-10">

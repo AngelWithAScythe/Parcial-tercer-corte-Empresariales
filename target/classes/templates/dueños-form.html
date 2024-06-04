@@ -21,12 +21,17 @@
     .card {
     	border:none
     }
+    body{
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center center;
+    }
 </style>
 </head>
-<body class="bg-dark">
+<body th:style="|background-image: url('@{/img/Fondo.jpeg}');|">
 	<div class="container my-5 d-flex justify-content-center">
-		<div class="card col-md-8 bg-dark">
-			<div class="card-body py-4 bg-light">
+		<div class="card col-md-8">
+			<div class="card-body py-4">
 				<div id="formulario" class="col-md-10">
 					<form th:action="${tipo == 'nuevo' ? '/duenos/register' : '/duenos/save'}" th:object="${dueño}"
 						method="post">

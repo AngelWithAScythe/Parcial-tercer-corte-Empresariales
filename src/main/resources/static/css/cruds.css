@@ -1,0 +1,52 @@
+@charset "ISO-8859-1";
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.body{
+	
+     background-size: cover;
+     background-position: center;
+     background-repeat: no-repeat;
+}
+
+
+.header{
+    background-color: #0cb7f2;
+    padding: 10px;
+}
+
+.btn btn-danger{
+	color: white;
+    font-family: "Baloo 2";
+    font-size: 16px;
+}
+
+.btn btn-logout{
+	color: white;
+    font-family: "Baloo 2";
+    font-size: 16px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.table-responsive-md {
+    margin: 0 auto;
+}
+
+.table {
+    margin: 0 auto;
+}
+
+.table th{
+    font-family: "Baloo 2"
+}
+
+.table th{
+    font-family: "Baloo 2"
+}
+
+
+

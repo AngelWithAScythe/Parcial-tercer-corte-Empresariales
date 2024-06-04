@@ -92,3 +92,53 @@ p {
     color: #555;
     font-family: Montserrat;
 }
+
+.pie-pagina{
+    width: 100%;
+    background-color: #0cb7f2;
+}
+
+.pie-pagina .grupo-1{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 50px;
+    padding: 45px 0px;
+}
+
+.pie-pagina .grupo-1 .box figure{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pie-pagina .grupo-1 .box figure img{
+    width: 250px;
+}
+
+.pie-pagina .grupo-1 .box h2{
+    font-family: "Baloo 2";
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+
+.pie-pagina .grupo-1 .box p{
+    font-family: Montserrat;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.pie-pagina .grupo-2{
+    background-color: #216bb6;
+    padding: 15px 10px;
+    text-align: center;
+}
+
+
+.pie-pagina .grupo-2 small{
+    font-family: "Baloo 2";
+}
