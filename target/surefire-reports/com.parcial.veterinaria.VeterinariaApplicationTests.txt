@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.parcial.veterinaria.VeterinariaApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.81 s -- in com.parcial.veterinaria.VeterinariaApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.03 s -- in com.parcial.veterinaria.VeterinariaApplicationTests
